@@ -25,10 +25,14 @@ const RODRIGO = {
   foto: `${BASE}/logos/rodrigo.png`,
 }
 
-const REDES_PDF: Record<string, string> = {
-  DF: `${BASE}/documentos/BRADESCO - DF - REDE CREDENCIADA.pdf`,
-  SP: `${BASE}/documentos/BRADESCO - SP - REDE CREDENCIADA.pdf`,
-  MG: `${BASE}/documentos/BRADESCO - MG - REDE CREDENCIADA.pdf`,
+const ESTADOS_NOME: Record<string, string> = {
+  AC: 'Acre', AL: 'Alagoas', AP: 'Amapá', AM: 'Amazonas', BA: 'Bahia',
+  CE: 'Ceará', DF: 'Distrito Federal', ES: 'Espírito Santo', GO: 'Goiás',
+  MA: 'Maranhão', MT: 'Mato Grosso', MS: 'Mato Grosso do Sul', MG: 'Minas Gerais',
+  PA: 'Pará', PB: 'Paraíba', PE: 'Pernambuco', PI: 'Piauí', PR: 'Paraná',
+  RJ: 'Rio de Janeiro', RN: 'Rio Grande do Norte', RO: 'Rondônia', RR: 'Roraima',
+  RS: 'Rio Grande do Sul', SC: 'Santa Catarina', SE: 'Sergipe', SP: 'São Paulo',
+  TO: 'Tocantins',
 }
 
 
@@ -41,7 +45,7 @@ function getFaixaPorIdade(idade: number, faixas: FaixaPreco[]): FaixaPreco | nul
 const W = 'py-10 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto'
 const DIV = 'border-t border-gray-200 dark:border-gray-800'
 
-export default function PortalConferencia({ cliente, comunicado, produtos, coparticipacao, reembolso, hospitais }: Props) {
+export default function PortalConferencia({ cliente, comunicado, produtos, coparticipacao, reembolso }: Props) {
   const [produtoId, setProdutoId] = useState<string | null>(null)
   const [idadeStr, setIdadeStr]   = useState('')
   const [fotoOk, setFotoOk]       = useState(false)
@@ -223,32 +227,23 @@ export default function PortalConferencia({ cliente, comunicado, produtos, copar
             Baixe o PDF com a lista completa de hospitais, clínicas e laboratórios credenciados por estado.
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {estados.map(uf => {
-              const total = hospitais.filter(h => h.estado === uf).length
-              return (
-                <div key={uf} className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-5 flex flex-col gap-3">
-                  <div>
-                    <p className="font-bold text-lg text-gray-900 dark:text-white">{uf}</p>
-                    {total > 0 && (
-                      <p className="text-xs text-gray-400 mt-0.5">{total} estabelecimentos</p>
-                    )}
-                  </div>
-                  {REDES_PDF[uf] ? (
-                    <a
-                      href={REDES_PDF[uf]}
-                      download
-                      className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold transition-colors shadow-sm mt-auto"
-                    >
-                      <Download size={14} />
-                      Baixar PDF
-                    </a>
-                  ) : (
-                    <span className="text-xs text-gray-400">PDF não disponível</span>
-                  )}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+            {estados.map(uf => (
+              <div key={uf} className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 p-4 flex flex-col gap-3">
+                <div>
+                  <p className="font-bold text-base text-gray-900 dark:text-white">{uf}</p>
+                  <p className="text-xs text-gray-400 mt-0.5 leading-tight">{ESTADOS_NOME[uf]}</p>
                 </div>
-              )
-            })}
+                <a
+                  href={`${BASE}/documentos/${uf}.pdf`}
+                  download
+                  className="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold transition-colors shadow-sm mt-auto"
+                >
+                  <Download size={12} />
+                  Baixar PDF
+                </a>
+              </div>
+            ))}
           </div>
         </div>
       </div>

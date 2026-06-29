@@ -3,5 +3,5 @@
   "operadora": "Bradesco Saúde",
   "logo": "/logos/cliente.png",
   "mensagem": "Reunimos todas as informações importantes em um único lugar para facilitar sua consulta sempre que precisar.",
-  "estados": ["DF", "SP", "MG"]
+  "estados": ["AC","AL","AP","AM","BA","CE","DF","ES","GO","MA","MT","MS","MG","PA","PB","PE","PI","PR","RJ","RN","RO","RR","RS","SC","SE","SP","TO"]
 }
